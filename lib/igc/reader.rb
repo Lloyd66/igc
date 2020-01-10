@@ -5,6 +5,7 @@ module IGC
 		attr_reader :date
 
   	REGEX_H_DTE = /^hf(dte)((\d{2})(\d{2})(\d{2}))/i
+  	REGEX_H_DTEDATE = /^hf(dtedate:)((\d{2})(\d{2})(\d{2}))/i
   	REGEX_A = /^[a]([a-z\d]{3})([a-z\d]{3})?(.*)$/i
 		REGEX_H = /^[h][f|o|p]([\w]{3})(.*):(.*)$/i
 		REGEX_B = /^(B)(\d{2})(\d{2})(\d{2})(\d{7}[NS])(\d{8}[EW])([AV])(\d{5})(\d{5})/
@@ -21,8 +22,11 @@ module IGC
         raise "Invalid file format"
       end
 
-      date_array = @contents.scan(REGEX_H_DTE)[0]
-			@date = Date.strptime(date_array[1],'%d%m%y')
+      result = @contents.scan(REGEX_H_DTE)
+      if(result.blank?)
+      	result = @contents.scan(REGEX_H_DTEDATE)
+      end
+			@date = Date.strptime(result[0][1],'%d%m%y')
 		end
 
 		# Public : Returns the A record of the file
