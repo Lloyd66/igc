@@ -66,7 +66,7 @@ module IGC
 
 				# Gets the position at that time by long, lat and alt.
 
-				position = IGC::Geolocation.to_dec(b[5], b[4]) + [b[8].to_i]
+				position = IGC::Geolocation.to_dec(b[5], b[4]) + [b[7].to_i, b[8].to_i]
 
 				# Adds the time and position in the hash
 				flight_path[time] = position
