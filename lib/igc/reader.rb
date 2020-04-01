@@ -15,7 +15,7 @@ module IGC
 		# file_path: string with the path to the igc file
 		def initialize(file_path)
 			f = File.open(file_path) do |file|
-				@contents = file.read
+				@contents = file.read.encode('UTF-8', :invalid => :replace, :undef => :replace)
 			end
 
 			unless @a_record = @contents.match(REGEX_A)
