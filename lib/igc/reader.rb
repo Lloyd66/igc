@@ -58,11 +58,24 @@ module IGC
 			# 			we should use the pressure altitude when it's present (b[8]),
 			# 			otherwise, the should use the gps alt. For now we'll just
 			# 			use the gps altitude.
+
+			last_hour = nil
+			current_date = @date.dup
+
 			b_records.each do |b|
 
+				if(last_hour.nil?)
+					last_hour = b[1].to_i
+				end
+
 				# Gets the datetime from the file date + time of record
-				time = DateTime.new(@date.year, @date.month, @date.day, 
+				time = DateTime.new(current_date.year, current_date.month, current_date.day, 
               b[1].to_i, b[2].to_i, b[3].to_i).to_s
+
+				if(last_hour > b[1].to_i)
+					current_date = current_date + 1.day
+				end
+				last_hour = b[1].to_i
 
 				# Gets the position at that time by long, lat and alt.
 
