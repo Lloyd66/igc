@@ -18,14 +18,17 @@ module IGC
 				@contents = file.read.encode('UTF-8', :invalid => :replace, :undef => :replace)
 			end
 
-			unless @a_record = @contents.match(REGEX_A)
-        raise "Invalid file format"
-      end
+			@a_record = @contents.match(REGEX_A)
 
       result = @contents.scan(REGEX_H_DTE)
       if(result.blank?)
       	result = @contents.scan(REGEX_H_DTEDATE)
       end
+
+      if(result.blank?)
+      	raise "Invalid file format"
+      end
+      
 			@date = Date.strptime(result[0][1],'%d%m%y')
 		end
 
