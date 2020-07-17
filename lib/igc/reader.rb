@@ -8,7 +8,7 @@ module IGC
   	REGEX_H_DTEDATE = /^hf(dtedate:)((\d{2})(\d{2})(\d{2}))/i
   	REGEX_A = /^[a]([a-z\d]{3})([a-z\d]{3})?(.*)$/i
 		REGEX_H = /^[h][f|o|p]([\w]{3})(.*):(.*)$/i
-		REGEX_B = /^(B)(\d{2})(\d{2})(\d{2})(\d{7}[NS])(\d{8}[EW])([AV])(\d{5})(\d{5})/
+		REGEX_B = /^(B)(\d{2})(\d{2})(\d{2})(\d{7}[NS])(\d{8}[EW])([AV])([0-9\-]{5})([0-9\-]{5})/
 
 		# Public : Initializes a new IGC::Reader instance, taking a file_path and filling the contents
 		# 
